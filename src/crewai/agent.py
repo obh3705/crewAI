@@ -83,7 +83,7 @@ class Agent(BaseAgent):
     )
     llm: Any = Field(
         default_factory=lambda: ChatOpenAI(
-            model=os.environ.get("OPENAI_MODEL_NAME", "gpt-4o")
+            model=os.environ.get("OPENAI_MODEL_NAME", "gpt-4o-mini")
         ),
         description="Language model that will run the agent.",
     )
