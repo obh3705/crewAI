@@ -12,7 +12,7 @@ def run():
     Run the crew.
     """
     inputs = {
-        'topic': '코스피 시장 분석'
+        'topic': '2024년 9월 27일 한국 뉴스'
     }
     MasCrew().crew().kickoff(inputs=inputs)
 

@@ -1,6 +1,7 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task, llm
 from langchain_openai import ChatOpenAI
+from langchain.tools import DuckDuckGoSearchRun
 
 # Uncomment the following line to use an example of a custom tool
 # from mas.tools.custom_tool import MyCustomTool
@@ -22,6 +23,7 @@ class MasCrew():
 	def researcher(self) -> Agent:
 		return Agent(
 			config=self.agents_config['researcher'],
+			tools=[DuckDuckGoSearchRun(name="Search")],
 			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
 			verbose=True
 		)
