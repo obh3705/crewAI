@@ -9,29 +9,47 @@ tab1, tab2 = st.tabs(["전체 보기", "회의록 보기"])
 with tab1:
     st.write("전체 보기")
 
+# TODO: session state 처리 더 알아보기
 with tab2:
+    # Read the markdown file
+    def read_md_file(file_path):
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read()
+
+    # TODO: 경로 수정
+    # Path to the markdown file
+    md_file_path = '/Users/obyeonghyeon/Desktop/Programing/crewAI/mas/src/mas/report.md'
+
+    
+
     st.write("회의록 보기")
+    # state 처리
+    if 'md' not in st.session_state:
+        st.session_state.md = read_md_file(md_file_path)
+    else:
+        # st.write("md in session state")
+        st.write(st.session_state.md)
 
 
-# TODO: 회의록을 데이터 프레임으로 만들기
-df = pd.DataFrame(
-    np.random.randn(50, 20),
-    columns=('col %d' % i for i in range(20))
-)
+# # Read the markdown file
+# def read_md_file(file_path):
+#     with open(file_path, 'r', encoding='utf-8') as file:
+#         return file.read()
 
-@st.cache_data
-def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode("utf-8")
+# # TODO: 경로 수정
+# # Path to the markdown file
+# md_file_path = '/Users/obyeonghyeon/Desktop/Programing/crewAI/mas/src/mas/report.md'
 
-# 회의록 데이터프레임으로 만들기
-csv = convert_df(df)
+# # state 처리
+# if 'md' not in st.session_state:
+#     st.session_state.md = read_md_file(md_file_path)
+# md = read_md_file(md_file_path)
 
 st.download_button(
-    label="Download data as CSV",
-    data=csv,
-    file_name="large_df.csv",
-    mime="text/csv",
+    label="Download data as Markdown",
+    data=st.session_state.md,
+    file_name="large_df.md",
+    mime="text/markdown",
 )
 
 sentiment_mapping = [":material/thumb_down:", ":material/thumb_up:"]
